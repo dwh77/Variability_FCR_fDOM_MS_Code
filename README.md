@@ -1,7 +1,7 @@
 # Variabilty_FCR_fDOM_MS_Code
 R Scripts used in Howard et al. in preparation for Aquatic Sciences
 
-EDI_data_comp_final.R is used to compile data from EDI into csv used for Wavelet and AR time series analyses 
+EDI_data_comp_final.R is used to compile data from EDI into csv used for Wavelet and AR time series analyses (EDI links given in manuscript)
 
 Wavelets_for_fDOM_final_plots_lr.R is used to conducted continuous wavelet transforms and create plots and analyze results 
 
