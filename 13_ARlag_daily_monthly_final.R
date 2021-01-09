@@ -11,7 +11,7 @@ library(DescTools) #lets you plot the Timeseries, ACF and PACF in one window usi
 
 ### Geting lag for daily fDOM 
 
-daily_fDOM <- read_csv("./Data/ar_daily_data_joined.csv")
+daily_fDOM <- read_csv("./Data/ar_daily_data_joined_RAINLAGS.csv")
 head(daily_fDOM)
 tail(daily_fDOM)
 
@@ -65,7 +65,7 @@ temp_check <- daily_fDOM %>%
    select(Date, daily_EXO_fdom, fdom_daily_ARlag1, everything())
  head(data_surf)
  
-write.csv(data_surf, row.names = FALSE, "./Data/variables_all_pluslag_fDOM_daily_final.csv")
+write.csv(data_surf, row.names = FALSE, "./Data/variables_all_pluslag_fDOM_daily_final_RAINLAGS.csv")
  
 
 
@@ -118,10 +118,11 @@ monthly_pacf <- pacf(monthly_fDOM$monthly_EXOfdom, xlim = c(1,20), na.action = n
 
 
 #manually save image in export tab using 661 x 484 or  ratio save as monthly_PACF.tiff
-plot(daily_pacf,  las = 1, main = "Daily fDOM PACF") #las rotates the y axis numbers 
+par(mfrow=c(1,2))
+plot(daily_pacf,  las = 1, main = "Daily fDOM PACF",xlab = "Lag (days)") #las rotates the y axis numbers 
 title("a)", adj = 0)
 
-plot(monthly_pacf,  las = 1, main = "Monthly fDOM PACF") 
+plot(monthly_pacf,  las = 1, main = "Monthly fDOM PACF",xlab = "Lag (months)") 
 title("b)", adj = 0)
 
 
