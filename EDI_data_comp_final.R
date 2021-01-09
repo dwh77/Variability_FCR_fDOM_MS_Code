@@ -30,7 +30,9 @@ met <- read_csv("C:/Users/dwh18/Dropbox/Thesis/Final_Data_Scripts/Data/edi_met/M
 #### Selecting EXO data for AR and formating for wavelet ####
 head(exo)
 
+
 exo_filt <- slice(exo, -c(40656:40660)) #removing duplicated hour of data from 15 April 2019
+
 
 exo_filt <- exo_filt %>% 
   select(DateTime, EXOTemp_C_1, EXODOsat_percent_1, EXODO_mgL_1, EXOChla_ugL_1, EXOfDOM_QSU_1,
@@ -169,6 +171,8 @@ met_daily <- met_filt %>%
   summarize(daily_rain_mm = sum(Rain_Total_mm, na.rm = TRUE),
             daily_SRup_mean = mean(ShortwaveRadiationUp_Average_W_m2, na.rm = TRUE),
             daily_SRup_max = max(ShortwaveRadiationUp_Average_W_m2, na.rm = TRUE)) %>% 
+  mutate(Rain_mm_lag1 = lag(daily_rain_mm, 1),
+         Rain_mm_lag2 = lag(daily_rain_mm, 2)) %>% 
   filter(Date < "2019-10-02") 
 
 
@@ -279,7 +283,9 @@ day_fin <- join_daily_final %>%
          daily_SRup_mean_ZT = scale(daily_SRup_mean, center = TRUE, scale = TRUE),
          daily_SRup_max_ZT = scale(daily_SRup_max, center = TRUE, scale = TRUE),
          daily_rain_mm_ZT = scale(daily_rain_mm, center = TRUE, scale = TRUE),
-         WVWA_Flow_cms_daily_mean_ZT = scale(WVWA_Flow_cms_daily_mean, center = TRUE, scale = TRUE),
+         daily_rain_mm_lag1_ZT = scale(Rain_mm_lag1, center = TRUE, scale = TRUE),
+         daily_rain_mm_lag2_ZT = scale(Rain_mm_lag2, center = TRUE, scale = TRUE),
+                  WVWA_Flow_cms_daily_mean_ZT = scale(WVWA_Flow_cms_daily_mean, center = TRUE, scale = TRUE),
          WRT_days_daily_ZT = scale(WRT_days_daily, center = TRUE, scale = TRUE))  #mutate gets ztransformed data for each driver 
 
 head(day_fin)
@@ -287,8 +293,7 @@ tail(day_fin)
 
 day_fin[is.na(day_fin)] <- NA  #sets NaN from inflow days with no data to NA  
 
-
-#write.csv(day_fin, "./Data/ar_daily_data_joined.csv", row.names = FALSE)
+#write.csv(day_fin, "./Data/ar_daily_data_joined_RAINLAGS.csv", row.names = FALSE)
 
 
 #### MONTHLY JOIN  ####
