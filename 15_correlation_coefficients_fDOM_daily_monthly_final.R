@@ -10,13 +10,13 @@ library(tidyverse)
 
 #############  create correlation matrices for daily fDOM ############################
 
-data_daily <- read.csv("./Data/variables_all_pluslag_fDOM_daily_final.csv") #will need to change if transformed in 14 are used. Currently justt going to use z transfomred values
+data_daily <- read.csv("./Data/variables_all_pluslag_fDOM_daily_final_RAINLAGS.csv") #will need to change if transformed in 14 are used. Currently justt going to use z transfomred values
 head(data_daily)
 # get rid of desciptor columns (depth, week identifiers, etc.), so only possible drivers are left
 data_daily_ZT <- data_daily %>%  
   select(daily_EXO_fdom, fdom_daily_ARlag1, daily_EXO_chla_ugL_ZT, daily_EXO_do_mgL_ZT,
                          daily_EXO_do_persat_ZT, daily_EXO_wtr_temp_ZT, daily_SRup_mean_ZT, daily_SRup_max_ZT,
-                         daily_rain_mm_ZT, WVWA_Flow_cms_daily_mean_ZT,
+                         daily_rain_mm_ZT, daily_rain_mm_lag1_ZT, daily_rain_mm_lag2_ZT, WVWA_Flow_cms_daily_mean_ZT,
          WRT_days_daily_ZT) #just z transformed variables and fDOM 
 
 data_daily_norm <- data_daily %>%  
@@ -30,7 +30,7 @@ x <- chart.Correlation(data_daily_ZT, method = "spearman", histogram = TRUE)
 
 cor <- rcorr(as.matrix(data_daily_ZT), type = "spearman")
 spear <- cor$r
-write.csv(spear, "./Data/correlation_matrix_fdom_daily_final.csv")
+write.csv(spear, "./Data/correlation_matrix_fdom_daily_final_RAINLAGS.csv")
 
 
 
