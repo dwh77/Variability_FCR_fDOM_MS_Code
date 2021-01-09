@@ -1,7 +1,7 @@
 # Variability_FCR_fDOM_MS_Code
-R Scripts used in Howard et al. Variability in fluorescent dissolved organic matter concentrations across diel to seasonal time scales is driven by water temperature and shortwave radiation in a eutrophic reservoir
+R Scripts used in Howard et al. Variability in fluorescent dissolved organic matter concentrations across diel to seasonal time scales is driven by water temperature and meteorology in a eutrophic reservoir
 
-EDI_data_comp_final.R is used to compile data from EDI into csv used for Wavelet and AR time series analyses (EDI links given in manuscript)
+EDI_data_comp_final.R is used to compile data from EDI into csv files used for Wavelet and AR time series analyses (EDI links given in manuscript)
 
 Wavelets_for_fDOM_final_plots_lr.R is used to conducted continuous wavelet transforms and create plots and analyze results 
 
